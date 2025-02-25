@@ -23,29 +23,29 @@ export const createFarmer = async (req: Request, res: Response) => {
 
 export const getAllFarmers = async (req: Request, res: Response) => {
     try {
-        const farmers = await prisma.$queryRaw<Farmer[]>`
-            SELECT 
-                "id", 
-                "nome", 
-                "email", 
-                "telefone", 
-                "tamanhoTerreno", 
-                ST_AsGeoJSON("localizacao") AS localizacao 
-            FROM "Agricultor"
-        `;
+        const farmers = await prisma.agricultor.findMany({
+            select: {
+                id: true,
+                nome: true,
+                email: true,
+                telefone: true,
+                tamanhoTerreno: true,
+                localizacao: true,
+            },
+        });
 
         if (farmers.length > 0) {
-            const formattedFarmers = farmers.map((farmer: any) => ({
-                ...farmer,
-                localizacao: JSON.parse(farmer.localizacao),
-            }));
-            res.status(200).json(formattedFarmers);
-        } else {
-            res.status(404).json({ "message": "Nenhum agricultor encontrado!" });
+            res.status(200).json(farmers);
+            return;
         }
+        
+        res.status(404).json({ "message": "Nenhum agricultor encontrado!" });
+        return;
+
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: "Internal server error" });
+        return;
     }
 };
 

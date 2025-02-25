@@ -4,6 +4,7 @@ import { Map } from '../components/map'
 import { NavLink, useNavigate } from 'react-router'
 import { useState } from 'react'
 import { createFarmer } from '../utils/create-farmer'
+import { Header } from '../components/header'
 
 export function Register() {
   const navigate = useNavigate();
@@ -49,7 +50,10 @@ export function Register() {
   }
 
   return (
-    <div className='bg-slate-300 h-screen p-8 grid grid-cols-2 gap-8'>
+    <div>
+      <Header navigate={navigate} />
+    
+    <div className='bg-slate-300 h-screen p-8 pt-0 grid grid-cols-2 gap-8'>
       <main className='bg-slate-50 p-8 rounded-xl'>
         <h1 className='text-2xl font-bold mb-4'>Family Farming</h1>
         <div className='flex justify-between items-center mb-4 mt-4'>
@@ -85,6 +89,7 @@ export function Register() {
           <Map position={position} setPosition={setPosition}/>
         </div>
       </div>
+    </div>
     </div>
   )
 }

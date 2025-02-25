@@ -6,8 +6,12 @@ import { FarmCard } from "../components/farmer-card"
 import { Modal } from "../components/modal"
 import { getFarmer } from "../utils/get-farmer"
 import { Input } from "../components/input"
+import { Header } from "../components/header"
+import { useNavigate } from "react-router";
 
 export function List() {
+  const navigate = useNavigate();
+  
   const [search, setSearch] = useState('')
   const [farmerList, setFarmerList] = useState([]);
   const [position, setPosition] = useState([-6.890048, -38.555859]);
@@ -69,7 +73,9 @@ export function List() {
   }
 
   return (
-    <div className="bg-slate-300 h-screen p-4 sm:p-8 grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8">
+    <div>
+    <Header navigate={navigate} />
+    <div className="bg-slate-300 h-screen p-8 pt-0 grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8">
       <main className="bg-slate-50 p-4 sm:p-8 rounded-xl">
         <h1 className="text-xl sm:text-2xl font-bold mb-4">Family Farming</h1>
         <div className="flex justify-between items-center mb-4">
@@ -112,6 +118,7 @@ export function List() {
         atualizarCards={getAllFarmersFunction}
         getPosition={sendPosition}
       />
+    </div>
     </div>
   );
 }

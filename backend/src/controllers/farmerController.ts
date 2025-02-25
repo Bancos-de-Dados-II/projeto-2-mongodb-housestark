@@ -14,8 +14,11 @@ export const createFarmer = async (req: Request, res: Response) => {
                     telefone,
                     tamanhoTerreno,
                     localizacao: {
-                        x: parseFloat(posicaoXTerreno),
-                        y: parseFloat(posicaoYTerreno),
+                        type: "Point",
+                        coordinates: [
+                            parseFloat(posicaoYTerreno),     // A ordem é invertida pois a geolocalização usa a ordem (longitude, latitude) ao invés de (latitude, longitude)
+                            parseFloat(posicaoXTerreno),  
+                        ]
                     },
                 },
             })

@@ -5,7 +5,7 @@ export function Header() {
         <div className='bg-slate-300 p-8 '>
           <main className='bg-slate-50 p-4 rounded-xl flex justify-between pl-10 pr-10'>
             <div>
-                <h1>GreenTech</h1>
+                <h1 className="font-bold text-xl text-green-700">GreenTech</h1>
             </div>
             <nav className="flex">
                 <ul className="flex gap-20" >

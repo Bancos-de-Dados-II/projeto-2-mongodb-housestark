@@ -5,7 +5,7 @@ export function About() {
   return (
     <div className="min-h-screen bg-slate-300">
       <Header />
-      <main className="px-8 mx-auto py-8">
+      <main className="px-8 pt-0 mx-auto py-8">
 
         <section className="mb-12 bg-slate-50 w-full rounded-xl p-8">
           <h1 className="text-4xl font-bold text-center mb-8 text-green-800">Sobre nosso sistema GreenTech</h1>
@@ -31,8 +31,8 @@ export function About() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
               { name: "José Henrique", role: "Frontend Developer", img: "henrique.png" },
-              { name: "Islan Pereira", role: "Backend Developer", img: "henrique.png"  },
-              { name: "Gustavo Pereira", role: "UX Designer", img: "henrique.png"  },
+              { name: "Islan Pereira", role: "Backend Developer", img: "ft-islan.jpg"  },
+              { name: "Gustavo Pereira", role: "Full Stack Developer", img: "ft-perfil.png"  },
             ].map((member, index) => (
               <TeamCard key={index} name={member.name} role={member.role} img={member.img} />
             ))}

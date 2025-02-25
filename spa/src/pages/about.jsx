@@ -7,7 +7,7 @@ export function About() {
       <Header />
       <main className="px-8 mx-auto py-8">
 
-        <section className="mb-12 bg-slate-50 w-full rounded">
+        <section className="mb-12 bg-slate-50 w-full rounded-xl p-8">
           <h1 className="text-4xl font-bold text-center mb-8 text-green-800">Sobre nosso sistema GreenTech</h1>
           <h2 className="text-2xl font-semibold mb-4 text-green-700">Nossa missão</h2>
           <p className="text-lg text-gray-700">
@@ -15,7 +15,7 @@ export function About() {
           </p>
         </section>
 
-        <section className="mb-12">
+        <section className="mb-12 bg-slate-50 w-full rounded-xl p-8">
           <h2 className="text-2xl font-semibold mb-4 text-green-700">Principais recursos</h2>
           <ul className="list-disc list-inside text-lg text-gray-700">
             <li>Cadastro fácil de novos agricultores</li>

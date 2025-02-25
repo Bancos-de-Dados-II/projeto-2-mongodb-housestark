@@ -1,8 +1,5 @@
-import { Input } from '../components/input';
-import { Button } from '../components/button';
-import { Map } from '../components/map';
 import { Header } from '../components/header';
-import { NavLink, useNavigate } from 'react-router'
+import { useNavigate } from 'react-router'
 
 export function Home() {
   const navigate = useNavigate();

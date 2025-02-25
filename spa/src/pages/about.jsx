@@ -32,7 +32,7 @@ export function About() {
               { name: "Islan Pereira", role: "Backend Developer", img: "henrique.png"  },
               { name: "Gustavo Pereira", role: "UX Designer", img: "henrique.png"  },
             ].map((member, index) => (
-              <TeamCard name={member.name} role={member.role} img={member.img} />
+              <TeamCard key={index} name={member.name} role={member.role} img={member.img} />
             ))}
           </div>
         </section>

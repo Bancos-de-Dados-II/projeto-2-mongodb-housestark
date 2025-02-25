@@ -48,6 +48,9 @@ export function Home() {
     }
   }
 
+  console.log("teste");
+  
+
   return (
     <div className='bg-slate-300 h-screen p-8 grid grid-cols-2 gap-8'>
       <main className='bg-slate-50 p-8 rounded-xl'>

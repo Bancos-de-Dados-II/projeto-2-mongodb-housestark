@@ -7,17 +7,28 @@ export const createFarmer = async (req: Request, res: Response) => {
     try {
         const { nome, email, telefone, tamanhoTerreno, posicaoXTerreno, posicaoYTerreno } = req.body;
         if (nome && email && telefone && tamanhoTerreno && posicaoXTerreno && posicaoYTerreno) {
-            const farmer = await prisma.$executeRaw<Farmer[]>`
-                INSERT INTO "Agricultor" ("nome", "email", "telefone", "tamanhoTerreno", "localizacao")
-                VALUES (${nome}, ${email}, ${telefone}, ${tamanhoTerreno}, ST_SetSRID(ST_MakePoint(${posicaoXTerreno}, ${posicaoYTerreno}), 4326))
-            `
+            const farmer = await prisma.agricultor.create({
+                data: {
+                    nome,
+                    email,
+                    telefone,
+                    tamanhoTerreno,
+                    localizacao: {
+                        x: parseFloat(posicaoXTerreno),
+                        y: parseFloat(posicaoYTerreno),
+                    },
+                },
+            })
             res.status(201).json({ "message": "Agricultor criado com sucesso!" });
+            return;
         } else {
             res.status(400).json({ "message": "Todos os campos devem ser preenchidos!" });
+            return;
         }
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: "Internal server error" });
+        return;
     }
 }
 
@@ -38,7 +49,7 @@ export const getAllFarmers = async (req: Request, res: Response) => {
             res.status(200).json(farmers);
             return;
         }
-        
+
         res.status(404).json({ "message": "Nenhum agricultor encontrado!" });
         return;
 
@@ -71,7 +82,7 @@ export const getFarmerById = async (req: Request, res: Response) => {
         if (farmer) {
             const formattedFarmer = {
                 ...farmer,
-                localizacao: JSON.parse(farmer.localizacao), 
+                localizacao: JSON.parse(farmer.localizacao),
             };
             res.status(200).json(formattedFarmer);
         } else {

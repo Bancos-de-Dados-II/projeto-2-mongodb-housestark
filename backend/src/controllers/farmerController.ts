@@ -102,35 +102,56 @@ export const updateFarmer = async (req: Request, res: Response) => {
 
         if (!nome || !email || !telefone || !tamanhoTerreno || !posicaoXTerreno || !posicaoYTerreno) {
             res.status(400).json({ message: "Todos os campos devem ser preenchidos!" });
+            return;
         }
 
         const x = parseFloat(posicaoXTerreno);
         const y = parseFloat(posicaoYTerreno);
-        const id = parseInt(req.params.id);
+        const id = req.params.id;
 
-        if (isNaN(x) || isNaN(y) || isNaN(id)) {
-            res.status(400).json({ message: "As coordenadas e o ID devem ser números válidos!" });
+        if (isNaN(x) || isNaN(y)) {
+            res.status(400).json({ message: "As coordenadas devem ser números válidos!" });
+            return;
+        }
+        
+        const farmerEmail = await prisma.agricultor.findUnique({
+            where: {
+                email: email
+            }
+        });
+
+        if (farmerEmail) {
+            res.status(400).json({ message: "Email já cadastrado!" });
+            return;
         }
 
-        const farmer = await prisma.$executeRaw<Farmer[]>`
-            UPDATE "Agricultor"
-            SET 
-                "nome" = ${nome},
-                "email" = ${email},
-                "telefone" = ${telefone},
-                "tamanhoTerreno" = ${tamanhoTerreno},
-                "localizacao" = ST_SetSRID(ST_MakePoint(${x}, ${y}), 4326)
-            WHERE "id" = ${id}
-        `;
+        const farmer = await prisma.agricultor.update({
+            where: {
+                id: id
+            },
+            data: {
+                nome,
+                email,
+                telefone,
+                tamanhoTerreno,
+                localizacao: {
+                    type: "Point",
+                    coordinates: [y, x]
+                }
+            }
+        });
 
-        if (farmer > 0) {
+        if (farmer) {
             res.status(200).json({ message: "Agricultor atualizado com sucesso!" });
-        } else {
-            res.status(404).json({ message: "Agricultor não encontrado!" });
+            return;
         }
+
+        res.status(404).json({ message: "Agricultor não encontrado!" });
+        return;
     } catch (error) {
         console.error("Erro ao atualizar agricultor:", error);
         res.status(500).json({ error: "Internal server error" });
+        return;
     }
 };
 

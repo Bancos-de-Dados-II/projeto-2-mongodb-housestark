@@ -63,39 +63,36 @@ export const getAllFarmers = async (req: Request, res: Response) => {
     }
 };
 
+import { ObjectId } from "mongodb";
+
 export const getFarmerById = async (req: Request, res: Response) => {
     try {
+        const farmerId = req.params.id;
 
-        const farmerId = parseInt(req.params.id);
+        // Verifica se o ID é um ObjectId válido antes da consulta
+        if (!ObjectId.isValid(farmerId)) {
+            res.status(400).json({ error: "ID inválido" });
+            return;
+        }
 
-        const farmerObject = await prisma.$queryRaw<Farmer[]>`
-            SELECT 
-                "id", 
-                "nome", 
-                "email", 
-                "telefone", 
-                "tamanhoTerreno", 
-                ST_AsGeoJSON("localizacao") AS localizacao 
-            FROM "Agricultor"
-            WHERE "id" = ${farmerId}
-        `;
-
-        const farmer = farmerObject[0];
+        const farmer = await prisma.agricultor.findUnique({
+            where: {
+                id: farmerId
+            },
+        });
 
         if (farmer) {
-            const formattedFarmer = {
-                ...farmer,
-                localizacao: JSON.parse(farmer.localizacao),
-            };
-            res.status(200).json(formattedFarmer);
-        } else {
-            res.status(404).json({ message: "Nenhum agricultor encontrado!" });
+            return res.status(200).json(farmer);
         }
+
+        return res.status(404).json({ message: "Nenhum agricultor encontrado!" });
+
     } catch (error) {
         console.error(error);
-        res.status(500).json({ error: "Internal server error" });
+        return res.status(500).json({ error: "Erro interno do servidor" });
     }
 };
+
 
 export const updateFarmer = async (req: Request, res: Response) => {
     try {

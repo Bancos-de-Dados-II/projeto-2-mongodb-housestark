@@ -24,7 +24,28 @@ export function About() {
           </ul>
         </section>
 
-        
+        <section>
+          <h2 className="text-2xl font-semibold mb-6 text-green-700">Nosso time</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              { name: "José Henrique", role: "Frontend Developer", img: "henrique.png" },
+              { name: "Islan Pereira", role: "Backend Developer", img: "henrique.png"  },
+              { name: "Gustavo Pereira", role: "UX Designer", img: "henrique.png"  },
+            ].map((member, index) => (
+              <div key={index} className="bg-slate-50 p-6 rounded-lg shadow-md text-center">
+                <img
+                  src={member.img}
+                  alt={member.name}
+                  width={150}
+                  height={150}
+                  className="mx-auto rounded-full mb-4"
+                />
+                <h3 className="text-xl font-semibold mb-2">{member.name}</h3>
+                <p className="text-gray-600">{member.role}</p>
+              </div>
+            ))}
+          </div>
+        </section>
       </main>
     </div>
   )

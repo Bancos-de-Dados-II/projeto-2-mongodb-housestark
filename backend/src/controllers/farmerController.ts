@@ -82,14 +82,17 @@ export const getFarmerById = async (req: Request, res: Response) => {
         });
 
         if (farmer) {
-            return res.status(200).json(farmer);
+            res.status(200).json(farmer);
+            return;
         }
 
-        return res.status(404).json({ message: "Nenhum agricultor encontrado!" });
+        res.status(404).json({ message: "Nenhum agricultor encontrado!" });
+        return;
 
     } catch (error) {
         console.error(error);
-        return res.status(500).json({ error: "Erro interno do servidor" });
+        res.status(500).json({ error: "Erro interno do servidor" });
+        return;
     }
 };
 

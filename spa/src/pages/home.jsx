@@ -7,6 +7,9 @@ import { NavLink, useNavigate } from 'react-router'
 export function Home() {
   const navigate = useNavigate();
 
+  console.log("teste");
+  
+
   return (
     <div>
       <Header navigate={navigate} />

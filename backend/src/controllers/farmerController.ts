@@ -158,24 +158,35 @@ export const updateFarmer = async (req: Request, res: Response) => {
 export const deleteFarmer = async (req: Request, res: Response) => {
     try {
 
+        const farmerId = req.params.id;
+
+        // Verifica se o ID é um ObjectId válido antes da consulta
+        if (!ObjectId.isValid(farmerId)) {
+            res.status(400).json({ error: "ID inválido" });
+            return;
+        }
+
         const farmer = await prisma.agricultor.findUnique({
             where: {
-                id: Number(req.params.id)
+                id: farmerId
             }
         });
 
-        if (farmer != null) {
+        if (farmer) {
             const farmer = await prisma.agricultor.delete({
                 where: {
-                    id: Number(req.params.id)
+                    id: farmerId
                 }
             });
             res.status(200).json({ "message": "Agricultor excluido com sucesso!" });
-        } else {
-            res.status(404).json({ "message": "Agricultor nao encontrado!" });
-        }
+            return;
+        } 
+
+        res.status(404).json({ "message": "Agricultor nao encontrado!" });
+        return;
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: "Internal server error" });
+        return;
     }
 }

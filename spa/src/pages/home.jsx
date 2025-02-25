@@ -1,90 +1,29 @@
-import { Input } from '../components/input'
-import { Button } from '../components/button'
-import { Map } from '../components/map'
+import { Input } from '../components/input';
+import { Button } from '../components/button';
+import { Map } from '../components/map';
+import { Header } from '../components/header';
 import { NavLink, useNavigate } from 'react-router'
-import { useState } from 'react'
-import { createFarmer } from '../utils/create-farmer'
 
 export function Home() {
   const navigate = useNavigate();
-  const [search, setSearch] = useState('')
-  const [position, setPosition] = useState([-6.890048, -38.555859]);
-  const [nome, setNome] = useState("");
-  const [email, setEmail] = useState("");
-  const [telefone, setTelefone] = useState("");
-  const [tamanhoTerreno, setTamanhoTerreno] = useState("");
-
-  function onChange(e) {
-    setSearch(e.target.value);
-  }
-
-  function onKeyUp(e){
-    if (e.key == "Enter") {
-      handleSearch();
-      e.target.blur();
-    }
-  }
-
-  function handleSearch() {
-    fetch(`https://nominatim.openstreetmap.org/search?q=${search}&format=json`)
-      .then(response => response.json())
-      .then(data => {
-        let centro = [Number(data[0].lat),Number(data[0].lon)];
-        setPosition(centro);
-      })
-  }
-
-  async function handleSave(){
-    console.log(nome, email, telefone, tamanhoTerreno, position);
-    let requisition = await createFarmer(nome, email, telefone, tamanhoTerreno, position[0], position[1]);
-    if(requisition) {
-      navigate('/agricultores');
-    } else {
-      alert("Informações incorretas");
-      setNome("");
-      setEmail("");
-      setTelefone("");
-      setTamanhoTerreno("");
-    }
-  }
 
   return (
-    <div className='bg-slate-300 h-screen p-8 grid grid-cols-2 gap-8'>
+    <div>
+      <Header navigate={navigate} />
+    <div className='bg-slate-300 h-screen p-8 pt-0 '>
       <main className='bg-slate-50 p-8 rounded-xl'>
-        <h1 className='text-2xl font-bold mb-4'>Family Farming</h1>
-        <div className='flex justify-between items-center mb-4 mt-4'>
-          <h1 className='text-lg font-medium text-slate-700'>Criar agricultor</h1>
-          <NavLink to="/agricultores">
-            <Button>Lista</Button>
-          </NavLink>
-        </div>
-        <div className='flex flex-col gap-4 mb-4'>
-          <Input placeholder="Digite o nome" 
-          onChange={(e)=> setNome(e.target.value)}
-          />
-          <Input placeholder="Digite o email" 
-          onChange={(e)=> setEmail(e.target.value)}
-          />
-          <Input placeholder="Digite o telefone" 
-          onChange={(e)=> setTelefone(e.target.value)}
-          />
-          <Input placeholder="Digite o tamanho do terreno" 
-          onChange={(e)=> setTamanhoTerreno(e.target.value)} 
-          />
-        </div>
-        <Button
-        onClick={handleSave}
-        >Salvar</Button>
+          <div className='flex justify-between'>
+            <div className='flex-col self-center'>
+              <h1 className='text-3xl font-bold mb-1'>GreenTech</h1>
+              <h4 className='text-1xl font-bold mb-3'>Junte-se a maior rede de agricultores do mercado</h4>
+              <p>Cadastre sua propriedade e conheça outras perto de você</p>
+            </div>
+            <div>
+              <img src="https://media.istockphoto.com/id/649730316/pt/foto/tranquil-view-of-corn-farm-during-sunset.jpg?s=612x612&w=0&k=20&c=4nbXd-xJWnzsLHcHsX-FD_cHcBL6FydcGXJhjOOjukw=" alt="" />
+            </div>
+          </div>
       </main>
-      <div className="flex flex-col  rounded-xl bg-slate-50">
-        <div className='flex justify-between items-center gap-2 px-4 py-4'>
-          <Input placeholder="Procure pelo mapa" value={search} onChange={onChange} onKeyUp={onKeyUp}/>
-          <Button onClick={handleSearch} >Buscar</Button>
-        </div>
-        <div className='flex-grow'>
-          <Map position={position} setPosition={setPosition}/>
-        </div>
-      </div>
+    </div>
     </div>
   )
 }

@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { PrismaClient } from "@prisma/client";
+import { ObjectId } from "mongodb";
 
 const prisma = new PrismaClient();
 
@@ -62,8 +63,6 @@ export const getAllFarmers = async (req: Request, res: Response) => {
         return;
     }
 };
-
-import { ObjectId } from "mongodb";
 
 export const getFarmerById = async (req: Request, res: Response) => {
     try {

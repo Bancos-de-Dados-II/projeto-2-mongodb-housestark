@@ -13,6 +13,7 @@ export function Header() {
                     <li><Link to={'/registrar'} >Cadastro</Link></li>
                     <li><Link to={'/agricultores'} >Lista</Link></li>
                     <li><Link to={'/sobre'} >Sobre</Link></li>
+                    <li><Link to={'/mapa-calor'} >Mapa de calor</Link></li>
                 </ul>
             </nav>
           </main>

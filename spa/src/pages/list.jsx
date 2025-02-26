@@ -7,7 +7,8 @@ import { Modal } from "../components/modal"
 import { getFarmer } from "../utils/get-farmer"
 import { Input } from "../components/input"
 import { Header } from "../components/header"
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router"
+import { Footer } from "../components/footer"
 
 export function List() {
   const navigate = useNavigate();
@@ -80,9 +81,7 @@ export function List() {
         <h1 className="text-xl sm:text-2xl font-bold mb-4">Family Farming</h1>
         <div className="flex justify-between items-center mb-4">
           <h1 className="text-md sm:text-lg font-medium text-slate-700">Agricultores</h1>
-          <NavLink to="/">
-            <Button>Voltar</Button>
-          </NavLink>
+        
         </div>
         <div className="flex flex-col gap-4 mb-4 h-[50vh] overflow-y-scroll">
           {farmerList.length > 0 ? farmerList.map((farmer) => (
@@ -119,6 +118,7 @@ export function List() {
         getPosition={sendPosition}
       />
     </div>
+    <Footer/>
     </div>
   );
 }

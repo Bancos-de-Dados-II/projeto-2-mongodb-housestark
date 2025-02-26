@@ -5,6 +5,7 @@ import { NavLink, useNavigate } from 'react-router'
 import { useState } from 'react'
 import { createFarmer } from '../utils/create-farmer'
 import { Header } from '../components/header'
+import { Footer } from '../components/footer'
 
 export function Register() {
   const navigate = useNavigate();
@@ -58,9 +59,6 @@ export function Register() {
         <h1 className='text-2xl font-bold mb-4'>Family Farming</h1>
         <div className='flex justify-between items-center mb-4 mt-4'>
           <h1 className='text-lg font-medium text-slate-700'>Criar agricultor</h1>
-          <NavLink to="/agricultores">
-            <Button>Lista</Button>
-          </NavLink>
         </div>
         <div className='flex flex-col gap-4 mb-4'>
           <Input placeholder="Digite o nome" 
@@ -90,6 +88,7 @@ export function Register() {
         </div>
       </div>
     </div>
+    <Footer/>
     </div>
   )
 }

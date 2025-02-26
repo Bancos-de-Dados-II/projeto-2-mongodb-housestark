@@ -1,5 +1,6 @@
 import { Header } from "../components/header.jsx"
 import {TeamCard} from "../components/team-card.jsx"
+import { Footer } from "../components/footer.jsx"
 
 export function About() {
   return (
@@ -39,6 +40,7 @@ export function About() {
           </div>
         </section>
       </main>
+      <Footer/>
     </div>
   )
 }

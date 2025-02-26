@@ -120,8 +120,8 @@ export const updateFarmer = async (req: Request, res: Response) => {
             }
         });
 
-        if (farmerEmail) {
-            res.status(400).json({ message: "Email já cadastrado!" });
+        if (farmerEmail && farmerEmail.id !== id) {
+            res.status(400).json({ message: "Email já cadastrado por outro usuário!" });
             return;
         }
 

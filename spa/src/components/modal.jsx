@@ -3,6 +3,7 @@ import { useState } from "react";
 import { deleteFarmer } from "../utils/delete-farmer";
 import { updateFarmer } from "../utils/update-farmer";
 
+// eslint-disable-next-line react/prop-types
 export function Modal({ isOpen, onClose, farmer, atualizarCards, getPosition }) {
   if (!isOpen) return null;
 

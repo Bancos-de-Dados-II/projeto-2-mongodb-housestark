@@ -1,4 +1,4 @@
-export async function updateFarmer(id, nome, email, telefone, tamanhoTerreno, posicaoXTerreno, posicaoYTerreno) {
+export async function updateFarmer(id, nome, email, telefone, tamanhoTerreno, posicaoYTerreno, posicaoXTerreno,) {
     try {
       const response = await fetch(`http://localhost:3000/api/update-farmer/${id}`, {
         method: 'PUT',

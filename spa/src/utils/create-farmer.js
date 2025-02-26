@@ -1,4 +1,4 @@
-export async function createFarmer(nome, email, telefone, tamanhoTerreno, posicaoXTerreno, posicaoYTerreno) {
+export async function createFarmer(nome, email, telefone, tamanhoTerreno, posicaoYTerreno, posicaoXTerreno) {
     try {
       const response = await fetch('http://localhost:3000/api/create-farmer/', {
         method: 'POST',
